@@ -97,7 +97,7 @@ workGrid.innerHTML = PRODUCTS.map((p, i) => `
           <div><dt>Category</dt><dd>${p.category}</dd></div>
           <div><dt>Material</dt><dd>${p.material}</dd></div>
         </dl>
-        ${p.credit ? `<p class="product__info-credit">${p.credit}</p>` : ""}
+        ${p.credit ? `<p class="product__info-credit">${p.credit.replace(" by ", " by<br>")}</p>` : ""}
       </div>
     </div>
     <p class="product__caption">

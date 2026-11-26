@@ -367,9 +367,11 @@ button {
 .product__info-specs dt { color: var(--ink-muted); }
 
 .product__info-credit {
-  font-size: var(--fs-xs);
+  font-size: 10px;
+  line-height: 1.3;
   color: var(--ink-muted);
   justify-self: end;
+  text-align: right;
 }
 
 /* Caption under each frame */
