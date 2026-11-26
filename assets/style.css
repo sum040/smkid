@@ -11,6 +11,10 @@
   --line: rgba(28, 28, 28, 0.14);
   --placeholder: #e8e8e8;    /* gray frame for images */
   --placeholder-ink: rgba(28, 28, 28, 0.35);
+  --accent: #1A2B8C;         /* navy point color */
+  --on-accent: #ffffff;
+  --on-accent-muted: rgba(255, 255, 255, 0.7);
+  --on-accent-line: rgba(255, 255, 255, 0.3);
 
   /* Grid */
   --cols: 12;
@@ -75,7 +79,7 @@ button {
   cursor: pointer;
 }
 
-::selection { background: var(--ink); color: var(--bg); }
+::selection { background: var(--accent); color: var(--on-accent); }
 
 /* The 12-column grid used by every block */
 .grid {
@@ -577,3 +581,34 @@ button {
 
 .lightbox button:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
 .sketch:hover .sketch__frame.has-image { background: var(--bg); opacity: 0.85; }
+
+/* ==========================================================
+   Navy accent (option B)
+   Selected states, numbers, hover panel, and a navy
+   Contact + footer block at the end of the page.
+   ========================================================== */
+.header__nav a.is-active,
+.tabs__btn.is-active,
+.section__index,
+.product__caption span:first-child { color: var(--accent); }
+
+.product__info { background: var(--accent); color: var(--on-accent); }
+.product__info-desc,
+.product__info-specs dt,
+.product__info-credit { color: var(--on-accent-muted); }
+.product__info-specs { border-top-color: var(--on-accent-line); }
+
+.contact,
+.footer { background: var(--accent); color: var(--on-accent); }
+
+.contact { margin-top: var(--space-section); padding-top: 120px; }
+.contact .section__index,
+.contact .section__count,
+.contact__text,
+.footer__inner { color: var(--on-accent-muted); }
+.contact .section__head::after { background: var(--on-accent-line); }
+.contact ::selection,
+.footer ::selection { background: var(--on-accent); color: var(--accent); }
+
+.footer { border-top-color: rgba(255, 255, 255, 0.2); }
+.footer__top:hover { color: var(--on-accent); }
