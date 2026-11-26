@@ -91,7 +91,6 @@ workGrid.innerHTML = PRODUCTS.map((p, i) => `
         ? `<img src="${p.image}" alt="${p.alt || p.name}${p.credit ? ` (${p.credit})` : ""}" loading="lazy" decoding="async">`
         : `Product ${pad(i + 1)} — Render`}</div>
       <div class="product__info" aria-hidden="true">
-        <h3 class="product__info-name">${p.name}</h3>
         <p class="product__info-desc">${p.desc}</p>
         <dl class="product__info-specs">
           <div><dt>Year</dt><dd>${p.year}</dd></div>
