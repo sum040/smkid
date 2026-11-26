@@ -19,7 +19,25 @@ const PRODUCTS = [
       "After 180 uses (about three months) a replace-brush icon appears. Reset with the button on the back."
     ]
   },
-  { name: "Product Two",   desc: "A short line that explains what this object does.", year: "2026", category: "Bath",     material: "Silicone" },
+  {
+    name: "Name Tag Power Strip",
+    desc: "See at a glance which switch powers which device.",
+    year: "2026", category: "Living", material: "PC, ABS",
+    image: "assets/img/product-02.jpg",
+    alt: "A white four-outlet power strip with a switch for each outlet and a black panel showing a device icon above every switch.",
+    // Kept for a future detail page (not shown yet)
+    forWhom: "Anyone who uses a power strip, in a studio flat, an office or anywhere else.",
+    problem: [
+      "When turning a switch off, you cannot tell which switch belongs to which device, so you end up flipping them one by one.",
+      "Switching off the wrong one can cut the Wi-Fi router by mistake."
+    ],
+    solution: [
+      "A power strip with four or more outlets, each with its own switch.",
+      "Next to every switch sits an icon roulette (TV, router, charger and more) that you turn sideways to match the plugged-in device.",
+      "The roulette is built in, so it never gets lost.",
+      "One look at the icons tells you exactly which switch to turn off."
+    ]
+  },
   { name: "Product Three", desc: "A short line that explains what this object does.", year: "2026", category: "Desk",     material: "ABS" },
   { name: "Product Four",  desc: "A short line that explains what this object does.", year: "2026", category: "Living",   material: "Ceramic" },
   { name: "Product Five",  desc: "A short line that explains what this object does.", year: "2026", category: "Personal", material: "Stainless steel" },
@@ -29,7 +47,7 @@ const PRODUCTS = [
 /* Sketches: add `image` (and `alt`) to replace a gray frame */
 const SKETCHES = [
   { title: "Brushing Timer", image: "assets/img/sketch-01.jpg", alt: "Pencil sketches of the toothbrush timer holder: brush in, brush lifted, and a two-slot version showing 2:59." },
-  { title: "Soft Hinge" },
+  { title: "Name Tag Power Strip", image: "assets/img/sketch-02.jpg", alt: "Pencil sketch of a four-outlet power strip with a long panel, and a close-up of the panel showing kettle, Wi-Fi and battery icons." },
   { title: "Weight Study" },
   { title: "Folded Edge" },
   { title: "Hold Point" },
