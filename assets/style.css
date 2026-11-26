@@ -1,0 +1,515 @@
+/* ==========================================================
+   SMKID — Design tokens
+   All layout values live here so responsive breakpoints can
+   later override only these variables.
+   ========================================================== */
+:root {
+  /* Color: soft black on white only */
+  --bg: #ffffff;
+  --ink: #1c1c1c;            /* main text, soft black */
+  --ink-muted: rgba(28, 28, 28, 0.55);
+  --line: rgba(28, 28, 28, 0.14);
+  --placeholder: #e8e8e8;    /* gray frame for images */
+  --placeholder-ink: rgba(28, 28, 28, 0.35);
+
+  /* Grid */
+  --cols: 12;
+  --margin: 40px;
+  --gutter: 20px;
+
+  /* Type scale */
+  --fs-xs: 12px;
+  --fs-s: 14px;
+  --fs-m: 18px;
+  --fs-l: 32px;
+  --fs-xl: 56px;
+  --fs-xxl: 120px;
+  --lh-tight: 1.05;
+  --lh-text: 1.5;
+  --tracking-tight: -0.02em;
+
+  /* Spacing */
+  --space-section: 200px;
+  --space-head: 64px;
+  --header-h: 64px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.8s;
+}
+
+/* ==========================================================
+   Base
+   ========================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: var(--fs-s);
+  line-height: var(--lh-text);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  min-width: 1200px; /* PC only for now. Remove when responsive is added. */
+}
+
+h1, h2, h3, p, dl, dd { margin: 0; }
+h1, h2, h3 { font-weight: 500; }
+a { color: inherit; text-decoration: none; }
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection { background: var(--ink); color: var(--bg); }
+
+/* The 12-column grid used by every block */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+
+/* Gray image placeholder */
+.placeholder {
+  position: relative;
+  background: var(--placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--placeholder-ink);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+/* ==========================================================
+   Header
+   ========================================================== */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.header__inner {
+  height: var(--header-h);
+  align-items: center;
+  font-size: var(--fs-s);
+}
+
+.header__logo {
+  grid-column: 1 / span 3;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+.header__desc {
+  grid-column: 4 / span 4;
+  color: var(--ink-muted);
+}
+
+.header__nav {
+  grid-column: 9 / span 4;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+.header__nav a {
+  position: relative;
+  width: fit-content;
+  color: var(--ink-muted);
+  transition: color 0.3s var(--ease);
+}
+
+.header__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
+}
+
+.header__nav a:hover,
+.header__nav a.is-active { color: var(--ink); }
+.header__nav a:hover::after,
+.header__nav a.is-active::after { transform: scaleX(1); }
+
+/* ==========================================================
+   Intro
+   ========================================================== */
+.intro {
+  min-height: 100vh;
+  padding-top: calc(var(--header-h) + 120px);
+  padding-bottom: 40px;
+  grid-template-rows: 1fr auto;
+  row-gap: 80px;
+}
+
+.intro__title {
+  grid-column: 1 / span 10;
+  align-self: end;
+  font-size: var(--fs-xxl);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.intro__meta {
+  grid-column: 1 / span 6;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  color: var(--ink-muted);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.intro__scroll {
+  grid-column: 12 / span 1;
+  justify-self: end;
+  align-self: end;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================
+   Section heads
+   ========================================================== */
+.section { padding-top: var(--space-section); scroll-margin-top: 0; }
+
+.section__head {
+  align-items: baseline;
+  padding-bottom: 20px;
+  margin-bottom: var(--space-head);
+  position: relative;
+}
+
+.section__head::after {
+  content: "";
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.section__index {
+  grid-column: 1 / span 1;
+  color: var(--ink-muted);
+}
+
+.section__title {
+  grid-column: 4 / span 6;
+  font-size: var(--fs-l);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+}
+
+.section__count {
+  grid-column: 12 / span 1;
+  justify-self: end;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================
+   Work — 6 products on a mixed-size grid
+   Row 1: 8 + 4   Row 2: 4 + 4 + 4   Row 3: 12
+   ========================================================== */
+.work { row-gap: 96px; }
+
+.product { cursor: default; }
+.product--a { grid-column: span 8; }
+.product--b { grid-column: span 4; }
+.product--c { grid-column: span 4; }
+.product--full { grid-column: span 12; }
+
+.product__frame { width: 100%; }
+.product--a .product__frame,
+.product--b .product__frame { height: 46vw; }
+.product--c .product__frame { height: 38vw; }
+.product--full .product__frame { height: 52vw; }
+
+.product__img {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1.2s var(--ease);
+}
+
+.product:hover .product__img { transform: scale(1.03); }
+
+/* Hover panel */
+.product__info {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: min(360px, calc(100% - 40px));
+  padding: 20px;
+  background: var(--bg);
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--fs-s);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  pointer-events: none;
+}
+
+.product:hover .product__info,
+.product:focus-within .product__info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product__info-name {
+  font-size: var(--fs-m);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.product__info-desc {
+  margin-top: 6px;
+  color: var(--ink-muted);
+}
+
+.product__info-specs {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  font-size: var(--fs-xs);
+}
+
+.product__info-specs dt { color: var(--ink-muted); }
+
+/* Caption under each frame */
+.product__caption {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  margin-top: 14px;
+  font-size: var(--fs-s);
+}
+
+.product__caption span:first-child,
+.product__caption span:last-child { color: var(--ink-muted); }
+
+/* ==========================================================
+   Sketches — 30 items, 6 per row
+   ========================================================== */
+.sketches { row-gap: 48px; }
+
+.sketch {
+  grid-column: span 2;
+  text-align: left;
+  display: block;
+}
+
+.sketch__frame {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  transition: background-color 0.4s var(--ease);
+}
+
+.sketch:hover .sketch__frame,
+.sketch:focus-visible .sketch__frame { background: #dedede; }
+
+.sketch:focus-visible { outline: none; }
+.sketch:focus-visible .sketch__frame { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+.sketch__caption {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  margin-top: 10px;
+  font-size: var(--fs-s);
+}
+
+.sketch__caption span:first-child { color: var(--ink-muted); }
+
+/* ==========================================================
+   About
+   ========================================================== */
+.about { row-gap: 64px; }
+
+.about__lead {
+  grid-column: 4 / span 8;
+  font-size: var(--fs-l);
+  line-height: 1.3;
+  letter-spacing: var(--tracking-tight);
+}
+
+.about__body {
+  grid-column: 4 / span 4;
+  display: grid;
+  row-gap: 16px;
+  color: var(--ink-muted);
+  font-size: var(--fs-m);
+  line-height: 1.6;
+}
+
+.about__facts {
+  grid-column: 9 / span 4;
+  border-top: 1px solid var(--line);
+}
+
+.about__facts div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about__facts dt { color: var(--ink-muted); }
+
+/* ==========================================================
+   Contact
+   ========================================================== */
+.contact { padding-bottom: var(--space-section); }
+
+.contact__text {
+  grid-column: 4 / span 6;
+  font-size: var(--fs-m);
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+}
+
+.contact__mail {
+  grid-column: 4 / span 9;
+  width: fit-content;
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 6px;
+  transition: background-size 0.7s var(--ease);
+}
+
+.contact__mail:hover { background-size: 100% 2px; }
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+.footer { border-top: 1px solid var(--line); }
+
+.footer__inner {
+  height: 80px;
+  align-items: center;
+  color: var(--ink-muted);
+}
+
+.footer__inner p:first-child { grid-column: 1 / span 3; }
+.footer__inner p:nth-child(2) { grid-column: 4 / span 4; }
+.footer__top { grid-column: 12 / span 1; justify-self: end; }
+.footer__top:hover { color: var(--ink); }
+
+/* ==========================================================
+   Lightbox
+   ========================================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: grid;
+  grid-template-rows: var(--header-h) 1fr;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.lightbox[hidden] { display: none; }
+.lightbox.is-open { opacity: 1; }
+
+.lightbox__bar {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+  align-items: center;
+}
+
+.lightbox__count { grid-column: 1 / span 3; color: var(--ink-muted); }
+.lightbox__title { grid-column: 4 / span 6; }
+.lightbox__close { grid-column: 12 / span 1; justify-self: end; }
+.lightbox__close:hover,
+.lightbox__nav:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.lightbox__stage {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding: 0 var(--margin) 40px;
+  align-items: center;
+  min-height: 0;
+}
+
+.lightbox__nav--prev { grid-column: 1 / span 1; justify-self: start; }
+.lightbox__nav--next { grid-column: 12 / span 1; justify-self: end; }
+
+.lightbox__frame {
+  grid-column: 4 / span 6;
+  width: min(100%, calc(100vh - var(--header-h) - 40px));
+  aspect-ratio: 1 / 1;
+  justify-self: center;
+  transition: opacity 0.3s var(--ease);
+}
+
+/* ==========================================================
+   Scroll reveal
+   ========================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur) var(--ease), transform 1s var(--ease);
+}
+
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .product__img, .product__info, .lightbox { transition: none; }
+}
+
+/* ==========================================================
+   Responsive (to be added later)
+   Override the tokens above, e.g.
+   @media (max-width: 1024px) { :root { --cols: 8; --margin: 24px; } }
+   @media (max-width: 640px)  { :root { --cols: 4; --margin: 16px; } }
+   ========================================================== */
+
+.lightbox button:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
