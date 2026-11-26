@@ -158,3 +158,48 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") showSketch(lbIndex + 1);
   if (e.key === "ArrowLeft") showSketch(lbIndex - 1);
 });
+
+/* ---------- Works tabs (Products / Sketches) ---------- */
+const tabs = [...document.querySelectorAll(".tabs__btn")];
+const worksSection = document.getElementById("works");
+
+const selectTab = (btn) => {
+  if (btn.classList.contains("is-active")) return;
+  const nextPanel = document.getElementById(btn.getAttribute("aria-controls"));
+  const currentBtn = tabs.find((t) => t.classList.contains("is-active"));
+  const currentPanel = document.getElementById(currentBtn.getAttribute("aria-controls"));
+
+  tabs.forEach((t) => {
+    const on = t === btn;
+    t.classList.toggle("is-active", on);
+    t.setAttribute("aria-selected", on);
+    t.tabIndex = on ? 0 : -1;
+  });
+
+  // fade out current, then fade in next
+  currentPanel.classList.remove("is-active");
+  setTimeout(() => {
+    currentPanel.hidden = true;
+    nextPanel.hidden = false;
+    nextPanel.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+
+    // keep the tabs in view if the user had scrolled past them
+    if (worksSection.getBoundingClientRect().top < 0) {
+      if (lenis) lenis.scrollTo(worksSection, { immediate: true });
+      else window.scrollTo(0, worksSection.offsetTop);
+    }
+    if (lenis) lenis.resize();
+
+    requestAnimationFrame(() => requestAnimationFrame(() => nextPanel.classList.add("is-active")));
+  }, 350);
+};
+
+tabs.forEach((btn) => btn.addEventListener("click", () => selectTab(btn)));
+
+document.querySelector(".tabs").addEventListener("keydown", (e) => {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  const i = tabs.findIndex((t) => t.classList.contains("is-active"));
+  const next = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+  next.focus();
+  selectTab(next);
+});
