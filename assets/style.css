@@ -99,6 +99,22 @@ button {
   overflow: hidden;
 }
 
+/* Real images inside frames */
+.placeholder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.product__frame.has-image img { object-fit: cover; }
+.sketch__frame.has-image,
+.lightbox__frame.has-image {
+  background: var(--bg);
+  outline: 1px solid var(--line);
+  outline-offset: -1px;
+}
+.sketch__frame.has-image img,
+.lightbox__frame.has-image img { object-fit: contain; }
+
 /* ==========================================================
    Header
    ========================================================== */
@@ -554,3 +570,4 @@ button {
    ========================================================== */
 
 .lightbox button:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+.sketch:hover .sketch__frame.has-image { background: var(--bg); opacity: 0.85; }

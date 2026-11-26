@@ -3,7 +3,22 @@
    text (and later, add image paths) without touching the layout. */
 
 const PRODUCTS = [
-  { name: "Product One",   desc: "A short line that explains what this object does.", year: "2026", category: "Kitchen",  material: "Aluminium" },
+  {
+    name: "Lift-to-Start Brushing Timer",
+    desc: "Lifting the toothbrush is the start button of a three-minute timer.",
+    year: "2026", category: "Bath", material: "ABS, Silicone",
+    image: "assets/img/product-01.jpg",
+    alt: "Two white toothbrush holders with sage green cups. One holds a toothbrush with a dark screen, the other is empty and shows 2:59.",
+    // Kept for a future detail page (not shown yet)
+    problem: "There is no easy way to know how long you have brushed, so most people stop before the recommended two to three minutes. Turning on a timer with wet hands is a hassle too.",
+    solution: [
+      "A small toothbrush holder with a number display. A push switch sits at the bottom of the brush slot.",
+      "While the toothbrush rests in the slot, its weight presses the switch and the display stays off.",
+      "Lift the toothbrush and the switch pops up: the display lights up at 3:00 and starts counting down.",
+      "At 0:00 a short sound and light signal the end of brushing. Put the brush back and it resets to 3:00.",
+      "After 180 uses (about three months) a replace-brush icon appears. Reset with the button on the back."
+    ]
+  },
   { name: "Product Two",   desc: "A short line that explains what this object does.", year: "2026", category: "Bath",     material: "Silicone" },
   { name: "Product Three", desc: "A short line that explains what this object does.", year: "2026", category: "Desk",     material: "ABS" },
   { name: "Product Four",  desc: "A short line that explains what this object does.", year: "2026", category: "Living",   material: "Ceramic" },
@@ -11,13 +26,38 @@ const PRODUCTS = [
   { name: "Product Six",   desc: "A short line that explains what this object does.", year: "2026", category: "Home",     material: "Wood" }
 ];
 
-const SKETCH_TITLES = [
-  "Morning Ritual", "Soft Hinge", "Weight Study", "Folded Edge", "Hold Point",
-  "Quiet Timer", "Pocket Form", "Tilt Test", "One Action", "Round Grip",
-  "Slide Lock", "Rest Angle", "Cap Study", "Balance Note", "Daily Hook",
-  "Small Tray", "Open Close", "Clip Form", "Drop Shape", "Light Touch",
-  "Stack Study", "Hidden Loop", "Line Grip", "Turn Point", "Simple Stand",
-  "Fold Twice", "Soft Corner", "Cord Study", "Last Step", "Final Form"
+/* Sketches: add `image` (and `alt`) to replace a gray frame */
+const SKETCHES = [
+  { title: "Brushing Timer", image: "assets/img/sketch-01.jpg", alt: "Pencil sketches of the toothbrush timer holder: brush in, brush lifted, and a two-slot version showing 2:59." },
+  { title: "Soft Hinge" },
+  { title: "Weight Study" },
+  { title: "Folded Edge" },
+  { title: "Hold Point" },
+  { title: "Quiet Timer" },
+  { title: "Pocket Form" },
+  { title: "Tilt Test" },
+  { title: "One Action" },
+  { title: "Round Grip" },
+  { title: "Slide Lock" },
+  { title: "Rest Angle" },
+  { title: "Cap Study" },
+  { title: "Balance Note" },
+  { title: "Daily Hook" },
+  { title: "Small Tray" },
+  { title: "Open Close" },
+  { title: "Clip Form" },
+  { title: "Drop Shape" },
+  { title: "Light Touch" },
+  { title: "Stack Study" },
+  { title: "Hidden Loop" },
+  { title: "Line Grip" },
+  { title: "Turn Point" },
+  { title: "Simple Stand" },
+  { title: "Fold Twice" },
+  { title: "Soft Corner" },
+  { title: "Cord Study" },
+  { title: "Last Step" },
+  { title: "Final Form" }
 ];
 
 const pad = (n) => String(n).padStart(2, "0");
@@ -26,8 +66,10 @@ const pad = (n) => String(n).padStart(2, "0");
 const workGrid = document.getElementById("work-grid");
 workGrid.innerHTML = PRODUCTS.map((p, i) => `
   <article class="product reveal" tabindex="0" aria-label="${p.name}">
-    <div class="product__frame placeholder">
-      <div class="product__img">Product ${pad(i + 1)} — Render</div>
+    <div class="product__frame placeholder${p.image ? " has-image" : ""}">
+      <div class="product__img">${p.image
+        ? `<img src="${p.image}" alt="${p.alt || p.name}" loading="lazy" decoding="async">`
+        : `Product ${pad(i + 1)} — Render`}</div>
       <div class="product__info" aria-hidden="true">
         <h3 class="product__info-name">${p.name}</h3>
         <p class="product__info-desc">${p.desc}</p>
@@ -48,10 +90,12 @@ workGrid.innerHTML = PRODUCTS.map((p, i) => `
 
 /* ---------- Render sketches ---------- */
 const sketchGrid = document.getElementById("sketch-grid");
-sketchGrid.innerHTML = SKETCH_TITLES.map((t, i) => `
-  <button class="sketch reveal" type="button" data-index="${i}" aria-label="Open sketch ${pad(i + 1)}, ${t}">
-    <div class="sketch__frame placeholder">S—${pad(i + 1)}</div>
-    <p class="sketch__caption"><span>${pad(i + 1)}</span><span>${t}</span></p>
+sketchGrid.innerHTML = SKETCHES.map((sk, i) => `
+  <button class="sketch reveal" type="button" data-index="${i}" aria-label="Open sketch ${pad(i + 1)}, ${sk.title}">
+    <div class="sketch__frame placeholder${sk.image ? " has-image" : ""}">${sk.image
+      ? `<img src="${sk.image}" alt="${sk.alt || sk.title}" loading="lazy" decoding="async">`
+      : `S—${pad(i + 1)}`}</div>
+    <p class="sketch__caption"><span>${pad(i + 1)}</span><span>${sk.title}</span></p>
   </button>
 `).join("");
 
@@ -111,18 +155,21 @@ document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 const lb = document.getElementById("lightbox");
 const lbCount = document.getElementById("lb-count");
 const lbTitle = document.getElementById("lb-title");
-const lbLabel = document.getElementById("lb-label");
 const lbFrame = document.getElementById("lb-frame");
 let lbIndex = 0;
 let lastFocus = null;
 
 const showSketch = (i) => {
-  lbIndex = (i + SKETCH_TITLES.length) % SKETCH_TITLES.length;
+  lbIndex = (i + SKETCHES.length) % SKETCHES.length;
   lbFrame.style.opacity = 0;
   setTimeout(() => {
-    lbCount.textContent = `${pad(lbIndex + 1)} / ${SKETCH_TITLES.length}`;
-    lbTitle.textContent = SKETCH_TITLES[lbIndex];
-    lbLabel.textContent = `S—${pad(lbIndex + 1)}`;
+    const sk = SKETCHES[lbIndex];
+    lbCount.textContent = `${pad(lbIndex + 1)} / ${SKETCHES.length}`;
+    lbTitle.textContent = sk.title;
+    lbFrame.classList.toggle("has-image", !!sk.image);
+    lbFrame.innerHTML = sk.image
+      ? `<img src="${sk.image}" alt="${sk.alt || sk.title}">`
+      : `<span>S—${pad(lbIndex + 1)}</span>`;
     lbFrame.style.opacity = 1;
   }, 150);
 };
