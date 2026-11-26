@@ -8,6 +8,7 @@ const PRODUCTS = [
     desc: "Lifting the toothbrush is the start button of a three-minute timer.",
     year: "2026", category: "Bath", material: "ABS, Silicone",
     image: "assets/img/product-01.jpg",
+    credit: "Rendered by Gemini",
     alt: "Two white toothbrush holders with sage green cups. One holds a toothbrush with a dark screen, the other is empty and shows 2:59.",
     // Kept for a future detail page (not shown yet)
     problem: "There is no easy way to know how long you have brushed, so most people stop before the recommended two to three minutes. Turning on a timer with wet hands is a hassle too.",
@@ -24,6 +25,7 @@ const PRODUCTS = [
     desc: "See at a glance which switch powers which device.",
     year: "2026", category: "Living", material: "PC, ABS",
     image: "assets/img/product-02.jpg",
+    credit: "Rendered by Gemini",
     alt: "A white four-outlet power strip with a switch for each outlet and a black panel showing a device icon above every switch.",
     // Kept for a future detail page (not shown yet)
     forWhom: "Anyone who uses a power strip, in a studio flat, an office or anywhere else.",
@@ -86,7 +88,7 @@ workGrid.innerHTML = PRODUCTS.map((p, i) => `
   <article class="product reveal" tabindex="0" aria-label="${p.name}">
     <div class="product__frame placeholder${p.image ? " has-image" : ""}">
       <div class="product__img">${p.image
-        ? `<img src="${p.image}" alt="${p.alt || p.name}" loading="lazy" decoding="async">`
+        ? `<img src="${p.image}" alt="${p.alt || p.name}${p.credit ? ` (${p.credit})` : ""}" loading="lazy" decoding="async">`
         : `Product ${pad(i + 1)} — Render`}</div>
       <div class="product__info" aria-hidden="true">
         <h3 class="product__info-name">${p.name}</h3>
@@ -96,6 +98,7 @@ workGrid.innerHTML = PRODUCTS.map((p, i) => `
           <div><dt>Category</dt><dd>${p.category}</dd></div>
           <div><dt>Material</dt><dd>${p.material}</dd></div>
         </dl>
+        ${p.credit ? `<p class="product__info-credit">${p.credit}</p>` : ""}
       </div>
     </div>
     <p class="product__caption">

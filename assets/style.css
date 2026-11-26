@@ -374,6 +374,12 @@ button {
 
 .product__info-specs dt { color: var(--ink-muted); }
 
+.product__info-credit {
+  margin-top: 16px;
+  font-size: var(--fs-xs);
+  color: var(--ink-muted);
+}
+
 /* Caption under each frame */
 .product__caption {
   display: grid;
