@@ -56,7 +56,8 @@ sketchGrid.innerHTML = SKETCH_TITLES.map((t, i) => `
 `).join("");
 
 /* ---------- Smooth scroll (Lenis) ---------- */
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Motion is always on, even when the OS "reduce motion" setting is enabled (owner request).
+const reduceMotion = false;
 let lenis = null;
 
 if (window.Lenis && !reduceMotion) {

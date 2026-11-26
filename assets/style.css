@@ -498,10 +498,7 @@ button {
 
 .reveal.is-visible { opacity: 1; transform: none; }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .product__img, .product__info, .lightbox { transition: none; }
-}
+/* Motion is always on, even when the OS "reduce motion" setting is enabled (owner request). */
 
 /* ==========================================================
    Responsive (to be added later)
