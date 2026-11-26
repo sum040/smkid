@@ -239,22 +239,20 @@ button {
 }
 
 /* ==========================================================
-   Work — 6 products on a mixed-size grid
-   Row 1: 8 + 4   Row 2: 4 + 4 + 4   Row 3: 12
+   Work — 6 products, all the same size
+   2 per row (6 + 6), 3 rows
    ========================================================== */
-.work { row-gap: 96px; }
+.work { row-gap: 80px; }
 
-.product { cursor: default; }
-.product--a { grid-column: span 8; }
-.product--b { grid-column: span 4; }
-.product--c { grid-column: span 4; }
-.product--full { grid-column: span 12; }
+.product {
+  grid-column: span 6;
+  cursor: default;
+}
 
-.product__frame { width: 100%; }
-.product--a .product__frame,
-.product--b .product__frame { height: 46vw; }
-.product--c .product__frame { height: 38vw; }
-.product--full .product__frame { height: 52vw; }
+.product__frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
 
 .product__img {
   position: absolute;

@@ -3,12 +3,12 @@
    text (and later, add image paths) without touching the layout. */
 
 const PRODUCTS = [
-  { size: "a",    name: "Product One",   desc: "A short line that explains what this object does.", year: "2026", category: "Kitchen",  material: "Aluminium" },
-  { size: "b",    name: "Product Two",   desc: "A short line that explains what this object does.", year: "2026", category: "Bath",     material: "Silicone" },
-  { size: "c",    name: "Product Three", desc: "A short line that explains what this object does.", year: "2026", category: "Desk",     material: "ABS" },
-  { size: "c",    name: "Product Four",  desc: "A short line that explains what this object does.", year: "2026", category: "Living",   material: "Ceramic" },
-  { size: "c",    name: "Product Five",  desc: "A short line that explains what this object does.", year: "2026", category: "Personal", material: "Stainless steel" },
-  { size: "full", name: "Product Six",   desc: "A short line that explains what this object does.", year: "2026", category: "Home",     material: "Wood" }
+  { name: "Product One",   desc: "A short line that explains what this object does.", year: "2026", category: "Kitchen",  material: "Aluminium" },
+  { name: "Product Two",   desc: "A short line that explains what this object does.", year: "2026", category: "Bath",     material: "Silicone" },
+  { name: "Product Three", desc: "A short line that explains what this object does.", year: "2026", category: "Desk",     material: "ABS" },
+  { name: "Product Four",  desc: "A short line that explains what this object does.", year: "2026", category: "Living",   material: "Ceramic" },
+  { name: "Product Five",  desc: "A short line that explains what this object does.", year: "2026", category: "Personal", material: "Stainless steel" },
+  { name: "Product Six",   desc: "A short line that explains what this object does.", year: "2026", category: "Home",     material: "Wood" }
 ];
 
 const SKETCH_TITLES = [
@@ -25,7 +25,7 @@ const pad = (n) => String(n).padStart(2, "0");
 /* ---------- Render products ---------- */
 const workGrid = document.getElementById("work-grid");
 workGrid.innerHTML = PRODUCTS.map((p, i) => `
-  <article class="product product--${p.size} reveal" tabindex="0" aria-label="${p.name}">
+  <article class="product reveal" tabindex="0" aria-label="${p.name}">
     <div class="product__frame placeholder">
       <div class="product__img">Product ${pad(i + 1)} — Render</div>
       <div class="product__info" aria-hidden="true">
